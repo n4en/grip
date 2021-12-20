@@ -1,0 +1,16 @@
+{
+    "id": "61c0ccc4766161a449b2ff54",
+    "name": "GitHub-Sync",
+    "type": "SCHEDULED",
+    "config": {
+        "schedule": "*/30 * * * *"
+    },
+    "disabled": true,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "fnGitHubSync"
+            }
+        }
+    }
+}

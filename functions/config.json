@@ -1,0 +1,14 @@
+[
+    {
+        "name": "fnGitHubSync",
+        "private": false
+    },
+    {
+        "name": "fnGitHubOrgRepos",
+        "private": false
+    },
+    {
+        "name": "fnGitHubOrgMembers",
+        "private": false
+    }
+]

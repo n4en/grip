@@ -1,0 +1,5 @@
+{
+    "name": "GitHub-Auth-Key",
+    "value": "GitHub-Token",
+    "from_secret": true
+}

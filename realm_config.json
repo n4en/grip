@@ -1,0 +1,8 @@
+{
+    "app_id": "grip-app-gpewq",
+    "config_version": 20210101,
+    "name": "grip-app",
+    "location": "IN-MB",
+    "deployment_model": "LOCAL",
+    "environment": "production"
+}

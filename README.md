@@ -4,6 +4,17 @@ The GitHub Reporting And Integration Platform (GRIP) uses APIs to sync and visua
 # GRIP Architecture
 ![alt text](./assets/GRIP-Architecture.png)
 
+# Dashboard
+
+### Live URL
+
+[GRIP-Repositories-Dashboard](https://charts.mongodb.com/charts-hackathon-gmhan/public/dashboards/c4bd6453-f97c-4e6c-aeaf-81be9b230de8)
+
+### Screenshots
+
+![Dashboard-1](./assets/GRIP-Repositories-Dashboard-1.png)
+![Dashboard-1](./assets/GRIP-Repositories-Dashboard-2.png)
+
 ## Tech
 
 -   [MongoDB-Atlas] - MongoDB Atlas is a multi-cloud database service by the same people that build MongoDB. MongoDB Atlas makes it easy to deploy and manage databases on-demand when and where you need them.

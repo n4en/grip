@@ -1,18 +1,49 @@
-exports = function(arg){
-  /*
-    Accessing application's values:
-    var x = context.values.get("value_name");
+//get All the GitHub Org Members
+const getAllGitHubMembers = async (octokit) => {
+  console.log("Executing method getAllGitHubMembers");
+  const response = await octokit.request("GET /orgs/{org}/members", {
+    org: "datadlog",
+  });
 
-    Accessing a mongodb service:
-    var collection = context.services.get("mongodb-atlas").db("dbname").collection("coll_name");
-    collection.findOne({ owner_id: context.user.id }).then((doc) => {
-      // do something with doc
-    });
+  return response.data;
+};
 
-    To call other named functions:
-    var result = context.functions.execute("function_name", arg1, arg2);
+// UPSERT (INSERT + UPDATE) the records, if exists update else insert
+const upsertGitHubMembers = async (collection, data) => {
+  console.log("Executing method upsertGitHubMembers");
+  data.map((record) => {
+    const query = { id: record.id };
+    const {
+      followers_url,
+      following_url,
+      gists_url,
+      starred_url,
+      subscriptions_url,
+      organizations_url,
+      repos_url,
+      events_url,
+      received_events_url,
+      ...updatedData
+    } = record;
 
-    Try running in the console below.
-  */
-  return {arg: arg};
+    const update = { $set: updatedData };
+    const options = { returnNewDocument: true, new: true, upsert: true };
+
+    collection.findOneAndUpdate(query, update, options);
+  });
+
+  return `Total members ${data.length} `;
+};
+// Main method
+exports = async function (octokit, collection) {
+  console.log("Start: fnGitHubOrgMembers");
+  let response;
+  try {
+    const data = await getAllGitHubMembers(octokit);
+    response = await upsertGitHubMembers(collection, data);
+  } catch (err) {
+    console.error(err);
+  }
+  console.log("End: fnGitHubOrgMembers");
+  return { message: response };
 };

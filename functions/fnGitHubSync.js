@@ -1,18 +1,37 @@
-exports = function(arg){
-  /*
-    Accessing application's values:
-    var x = context.values.get("value_name");
+exports = function (arg) {
+  console.log("Start: fnGitHubSync");
+  try {
+    const { Octokit } = require("octokit");
+    const GITHUB_API_TOKEN = context.values.get("GitHub-Auth-Key");
+    const octokit = new Octokit({ auth: GITHUB_API_TOKEN });
 
-    Accessing a mongodb service:
-    var collection = context.services.get("mongodb-atlas").db("dbname").collection("coll_name");
-    collection.findOne({ owner_id: context.user.id }).then((doc) => {
-      // do something with doc
-    });
+    const database = "gripDB";
 
-    To call other named functions:
-    var result = context.functions.execute("function_name", arg1, arg2);
+    const reposCollection = context.services
+      .get("mongodb-atlas")
+      .db(database)
+      .collection("repos");
 
-    Try running in the console below.
-  */
-  return {arg: arg};
+    const reposResult = context.functions.execute(
+      "fnGitHubOrgRepos",
+      octokit,
+      reposCollection
+    );
+
+    const membersCollection = context.services
+      .get("mongodb-atlas")
+      .db(database)
+      .collection("members");
+
+    const membersResult = context.functions.execute(
+      "fnGitHubOrgMembers",
+      octokit,
+      membersCollection
+    );
+
+    return { repos: reposResult, members: membersResult };
+  } catch (err) {
+    console.error(err);
+  }
+  console.log("End: fnGitHubSync");
 };
